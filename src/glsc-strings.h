@@ -1,5 +1,0 @@
-#ifndef __SHADERTOY_GLSCSTRINGS_H__
-#define __SHADERTOY_GLSCSTRINGS_H__
-
-
-#endif

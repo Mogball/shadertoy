@@ -44,7 +44,7 @@ _run() {
 }
 
 _setup() {
-    sudo apt-get install libsfml-dev
+    sudo apt-get install libsfml-dev libglew-dev
 }
 
 _glsl_compile() {

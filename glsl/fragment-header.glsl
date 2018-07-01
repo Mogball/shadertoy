@@ -6,9 +6,10 @@ uniform vec4 iMouse;
 uniform vec4 iDate;
 uniform float iSampleRate;
 
-uniform vec3 iChannelResolution[4]
+uniform vec3 iChannelResolution[4];
 
 uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
 uniform sampler2D iChannel2;
 uniform sampler2D iChannel3;
+
