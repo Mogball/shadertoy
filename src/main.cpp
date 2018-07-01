@@ -207,17 +207,39 @@ static char *read_file(const char *path) {
 }
 
 int main(int argc, char *argv[]) {
-    const int width = 1600;
-    const int height = 900;
     const char *path = NULL;
     const char *shader = GLSL_STRING(fragment_shader);
     char *value = NULL;
+    int width = 800;
+    int height = 600;
 
-    if (argc >= 2) {
-        path = argv[1];
+    char *end = NULL;
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "-w") == 0 ||
+            strcmp(argv[i], "--width") == 0) {
+            ++i;
+            width = strtol(argv[i], &end, 10);
+            if (*end != '\0') {
+                fprintf(stderr, "Invalid width\n");
+                return -1;
+            }
+            continue;
+        }
+        if (strcmp(argv[i], "-h") == 0 ||
+            strcmp(argv[i], "--height") == 0) {
+            ++i;
+            height = strtol(argv[i], &end, 10);
+            if (*end != '\0') {
+                fprintf(stderr, "Invalid height\n");
+                return -1;
+            }
+            continue;
+        }
+        path = argv[i];
         fprintf(stdout, "Reading shader file: %s\n", path);
         value = read_file(path);
         if (value == NULL) {
+            fprintf(stderr, "Failed to read file\n");
             return -1;
         }
         shader = value;
