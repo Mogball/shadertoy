@@ -43,6 +43,10 @@ _run() {
     ./shadertoy
 }
 
+_env() {
+    source wenv
+}
+
 _setup() {
     sudo apt-get install libsfml-dev libglew-dev
 }
@@ -68,8 +72,11 @@ _simple() {
         _clean
     elif [ "$1" == 'run' ] ; then
         _run
+    elif [ "$1" == 'env' ] ; then
+        _env
     elif [ "$1" == 'setup' ] ; then
         echo "Setting up environment for Linux"
+        _env
         _setup
     else
         _print_help

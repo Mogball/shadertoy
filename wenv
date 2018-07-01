@@ -1,0 +1,4 @@
+#!/bin/bash
+BUILD_DIR=cmake-build-debug
+export PATH=$(pwd)/$BUILD_DIR:$PATH
+export PATH=$(pwd):$PATH
