@@ -209,13 +209,26 @@ static char *read_file(const char *path) {
 int main(int argc, char *argv[]) {
     const int width = 1600;
     const int height = 900;
+    const char *path = NULL;
+    const char *shader = GLSL_STRING(fragment_shader);
+    char *value = NULL;
+
+    if (argc >= 2) {
+        path = argv[1];
+        fprintf(stdout, "Reading shader file: %s\n", path);
+        value = read_file(path);
+        if (value == NULL) {
+            return -1;
+        }
+        shader = value;
+    }
 
     fprintf(stdout, "Booting shader toy emulator ... ");
     sf::Window app(sf::VideoMode(width, height), "Shader Toy");
     struct timespec start;
     struct timespec current;
 
-    if (!setup(GLSL_STRING(fragment_shader))) {
+    if (!setup(shader)) {
         fprintf(stderr, "Failed to setup shader\n");
         return -1;
     }
@@ -233,4 +246,7 @@ int main(int argc, char *argv[]) {
         render((float) timespec_diff(&start, &current));
         app.display();
     }
+
+    shutdown();
+    if (value) { free(value); }
 }
