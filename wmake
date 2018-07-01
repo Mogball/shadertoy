@@ -25,6 +25,7 @@ HEREDOC
 BUILD_DIR=cmake-build-debug
 
 _build() {
+    _glsl_compile
     mkdir -p $BUILD_DIR
     cd $BUILD_DIR
     cmake ..
@@ -32,6 +33,7 @@ _build() {
 }
 
 _clean() {
+    rm $(pwd)/include/*.glsl
     cd $BUILD_DIR
     make clean -j10
 }
@@ -43,6 +45,14 @@ _run() {
 
 _setup() {
     sudo apt-get install libsfml-dev
+}
+
+_glsl_compile() {
+    mkdir -p $(pwd)/include
+    cd $(pwd)/glsl
+    find ./ -type f -name "*.glsl" \
+        -exec xxd -i {} ../include/{} \;
+    cd ../
 }
 
 _simple() {
